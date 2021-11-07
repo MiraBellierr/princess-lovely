@@ -14,7 +14,7 @@ public class Events {
     }
 
     public void addEvents() throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        File folder = new File("C:\\Users\\dania\\IdeaProjects\\KannaBotto\\src\\main\\java\\events");
+        File folder = new File("./src/main/java/events");
         File[] listOfFiles = folder.listFiles();
 
         assert listOfFiles != null;
