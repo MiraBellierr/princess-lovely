@@ -1,6 +1,5 @@
 package handlers;
 
-import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.File;
@@ -23,10 +22,10 @@ public class Commands {
             for (File command : commands) {
                 String[] splitFileName = command.getName().split("\\.");
                 String fileName = splitFileName[0];
+                Class<?> commandClass = Class.forName("commands." + category.getName() + "." + fileName);
+                Object o = commandClass.getDeclaredConstructor().newInstance();
 
-                if (fileName.toLowerCase().equals(cmd)) {
-                    Class<?> commandClass = Class.forName("commands." + category.getName() + "." + fileName);
-                    Object o = commandClass.getDeclaredConstructor().newInstance();
+                if (commandClass.getDeclaredMethod("getName").invoke(o).toString().toLowerCase().equals(cmd)) {
                     commandClass.getDeclaredMethod("run", MessageReceivedEvent.class, ArrayList.class).invoke(o, event, args);
                 }
             }

@@ -1,9 +1,7 @@
 package commands.Utility;
 
-import events.MessageReceived;
 import handlers.Prefix;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,7 +11,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class Help {
