@@ -3,6 +3,7 @@ package commands.Utility;
 import events.MessageReceived;
 import handlers.Prefix;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Help {
@@ -70,7 +72,7 @@ public class Help {
         }
 
         embed.setDescription("<:discord:885340297733746798> [Invite Kanna](https://discord.com/api/oauth2/authorize?client_id=867048396358549544&permissions=0&scope=bot%20applications.commands)\n<:kanna:885340978834198608> [Kanna's Kawaii Klubhouse](https://discord.gg/NcPeGuNEdc)\n\n" + String.join("\n", list2));
-        event.getChannel().sendMessage(embed.build()).queue();
+        event.getChannel().sendMessageEmbeds(embed.build()).queue();
     }
 
     private void getCMD(MessageReceivedEvent event, String input) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
@@ -112,7 +114,7 @@ public class Help {
                 embed.setDescription(String.join("\n", list));
             }
 
-            event.getChannel().sendMessage(embed.build()).queue();
+            event.getChannel().sendMessageEmbeds(embed.build()).queue();
             list.clear();
         }
     }

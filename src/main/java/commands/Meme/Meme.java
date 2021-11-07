@@ -2,7 +2,7 @@ package commands.Meme;
 
 import com.google.gson.Gson;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,12 +12,13 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Collection;
 
 public class Meme {
 
     private String name = "Meme";
     private String Description = "Returns a meme";
+    private String category = "meme";
 
     public String getDescription() {
         return Description;
@@ -25,6 +26,10 @@ public class Meme {
 
     public String getName() {
         return name;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public void run(MessageReceivedEvent event, ArrayList<String> args) throws IOException, InterruptedException {
@@ -40,7 +45,7 @@ public class Meme {
                 .uri(URI.create(String.format("https://www.reddit.com/r/%s/hot.json", random)))
                 .build();
 
-        var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         Memes obj = new Gson().fromJson(response.body(), Memes.class);
         DataRetrieve result = obj.data.children.get((int) Math.floor(Math.random() * obj.data.children.toArray().length)).data;
 
@@ -50,7 +55,7 @@ public class Meme {
                 .setImage(result.url)
                 .setFooter(String.format("⬆️ %d | \uD83D\uDCAC %d | \uD83C\uDFC5 %d", result.ups, result.num_comments, result.total_awards_received));
 
-        event.getChannel().sendMessage(embed.build()).queue();
+        event.getChannel().sendMessageEmbeds(embed.build()).queue();
     }
 }
 
