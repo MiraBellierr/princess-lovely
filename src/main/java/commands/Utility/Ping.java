@@ -8,12 +8,20 @@ import java.util.ArrayList;
 
 public class Ping {
 
-    public String name = "ping";
-    public String description = "Reply with pong";
-    public String category = "utility";
+    private String name = "ping";
+    private String description = "Reply with pong";
+    private String category = "utility";
 
-    public Ping(MessageReceivedEvent event, ArrayList<String> args) {
-        run(event, args);
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public void run(@NotNull MessageReceivedEvent event, ArrayList<String> args) {

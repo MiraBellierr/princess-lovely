@@ -26,7 +26,8 @@ public class Commands {
 
                 if (fileName.toLowerCase().equals(cmd)) {
                     Class<?> commandClass = Class.forName("commands." + category.getName() + "." + fileName);
-                    commandClass.getConstructor(MessageReceivedEvent.class, ArrayList.class).newInstance(event, args);
+                    Object o = commandClass.getDeclaredConstructor().newInstance();
+                    commandClass.getDeclaredMethod("run", MessageReceivedEvent.class, ArrayList.class).invoke(o, event, args);
                 }
             }
         }
