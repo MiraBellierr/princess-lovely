@@ -1,7 +1,7 @@
 package events;
 
 import handlers.Commands;
-import handlers.Prefix;
+import utils.Prefix;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
