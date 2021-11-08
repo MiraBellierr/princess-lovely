@@ -2,3 +2,4 @@
 target
 src/test
 src/main/resources
+/src/main/java/bot.config
