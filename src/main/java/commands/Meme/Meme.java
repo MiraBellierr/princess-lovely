@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.jetbrains.annotations.NotNull;
-import utils.DataRetrieve;
-import utils.Memes;
+import utils.memes.DataRetrieve;
+import utils.memes.Memes;
 
 import java.awt.*;
 import java.io.IOException;

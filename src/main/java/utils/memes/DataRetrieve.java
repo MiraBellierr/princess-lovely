@@ -1,4 +1,6 @@
-package utils;
+package utils.memes;
+
+import utils.memes.Icon;
 
 import java.util.ArrayList;
 
