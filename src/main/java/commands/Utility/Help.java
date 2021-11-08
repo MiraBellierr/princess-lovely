@@ -12,7 +12,6 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class Help {
 
@@ -67,7 +66,7 @@ public class Help {
             list.clear();
         }
 
-        embed.setDescription("<:discord:885340297733746798> [Invite Princess Lovely](https://discord.com/api/oauth2/authorize?client_id=907161843221536799&permissions=0&scope=bot%20applications.commands)\n<:kanna:885340978834198608> [Kanna's Kawaii Klubhouse](https://discord.gg/NcPeGuNEdc)\n\n" + String.join("\n", list2));
+        embed.setDescription("<:discord:885340297733746798> [Invite Princess Lovely](https://discord.com/api/oauth2/authorize?client_id=907161843221536799&permissions=0&scope=bot%20applications.commands)\n<:kanna:885340978834198608> [Kanna's Kawaii Klubhouse](https://discord.gg/NcPeGuNEdc)\n<:blurplegithub:885340297683406878> [Source Code](https://github.com/MiraBellierr/princess-lovely)\n\n" + String.join("\n", list2));
         event.getChannel().sendMessage(embed.build()).queue();
     }
 
