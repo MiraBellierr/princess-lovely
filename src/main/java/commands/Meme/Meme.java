@@ -57,6 +57,6 @@ public class Meme {
                 .setColor(new Color(205, 28, 108))
                 .setFooter(String.format("⬆️ %d | \uD83D\uDCAC %d | \uD83C\uDFC5 %d", result.ups, result.num_comments, result.total_awards_received));
 
-        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+        event.getChannel().sendMessage(embed.build()).queue();
     }
 }

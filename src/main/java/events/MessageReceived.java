@@ -2,7 +2,6 @@ package events;
 
 import handlers.Commands;
 import utils.Prefix;
-import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -13,12 +12,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class MessageReceived extends ListenerAdapter {
-
-    JDABuilder builder;
-
-    public MessageReceived(JDABuilder builder) {
-        this.builder = builder;
-    }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {

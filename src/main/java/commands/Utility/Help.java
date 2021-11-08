@@ -46,14 +46,14 @@ public class Help {
                 .setFooter(String.format("Type \"%shelp [command]\" for more info on a command!", new Prefix().getPrefix()), event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                 .setTitle(event.getJDA().getSelfUser().getName() + " Help Command");
 
-        File folder = new File("./src/main/java/commands");
+        File folder = new File("./classes/commands");
         File[] categories = folder.listFiles();
         List<String> list = new ArrayList<>();
         List<String> list2 = new ArrayList<>();
 
         assert categories != null;
         for (File category : categories) {
-            File categoryFolder = new File("./src/main/java/commands/" + category.getName());
+            File categoryFolder = new File("./classes/commands/" + category.getName());
             File[] commands = categoryFolder.listFiles();
 
             assert commands != null;
@@ -67,8 +67,8 @@ public class Help {
             list.clear();
         }
 
-        embed.setDescription("<:discord:885340297733746798> [Invite Kanna](https://discord.com/api/oauth2/authorize?client_id=867048396358549544&permissions=0&scope=bot%20applications.commands)\n<:kanna:885340978834198608> [Kanna's Kawaii Klubhouse](https://discord.gg/NcPeGuNEdc)\n\n" + String.join("\n", list2));
-        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+        embed.setDescription("<:discord:885340297733746798> [Invite Princess Lovely](https://discord.com/api/oauth2/authorize?client_id=907161843221536799&permissions=0&scope=bot%20applications.commands)\n<:kanna:885340978834198608> [Kanna's Kawaii Klubhouse](https://discord.gg/NcPeGuNEdc)\n\n" + String.join("\n", list2));
+        event.getChannel().sendMessage(embed.build()).queue();
     }
 
     private void getCMD(@NotNull MessageReceivedEvent event, String input) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
@@ -77,13 +77,13 @@ public class Help {
                 .setAuthor(event.getAuthor().getName(), null, event.getAuthor().getEffectiveAvatarUrl())
                 .setTimestamp(Instant.from(ZonedDateTime.now()));
 
-        File folder = new File("./src/main/java/commands");
+        File folder = new File("./classes/commands");
         File[] categories = folder.listFiles();
         List<String> list = new ArrayList<>();
 
         assert categories != null;
         for (File category : categories) {
-            File categoryFolder = new File("./src/main/java/commands/" + category.getName());
+            File categoryFolder = new File("./classes/commands/" + category.getName());
             File[] commands = categoryFolder.listFiles();
 
             assert commands != null;
@@ -110,7 +110,7 @@ public class Help {
             embed.setDescription(String.join("\n", list));
         }
 
-        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+        event.getChannel().sendMessage(embed.build()).queue();
         list.clear();
     }
 }

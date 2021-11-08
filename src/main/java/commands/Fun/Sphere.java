@@ -54,6 +54,6 @@ public class Sphere {
                 .setTimestamp(Instant.from(ZonedDateTime.now()))
                 .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl());
 
-        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+        event.getChannel().sendMessage(embed.build()).queue();
     }
 }

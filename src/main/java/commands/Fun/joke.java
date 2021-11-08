@@ -52,6 +52,6 @@ public class joke {
         embed.setColor(new Color(205, 28, 108));
         embed.setTimestamp(Instant.from(ZonedDateTime.now()));
 
-        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+        event.getChannel().sendMessage(embed.build()).queue();
     }
 }

@@ -11,12 +11,12 @@ public class Commands {
 
     public Commands(String cmd, MessageReceivedEvent event, ArrayList<String> args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 
-        File folder = new File("./src/main/java/commands");
+        File folder = new File("./classes/commands");
         File[] categories = folder.listFiles();
 
         assert categories != null;
         for (File category : categories) {
-            File categoryFolder = new File("./src/main/java/commands/" + category.getName());
+            File categoryFolder = new File("./classes/commands/" + category.getName());
             File[] commands = categoryFolder.listFiles();
 
             assert commands != null;

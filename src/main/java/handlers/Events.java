@@ -7,24 +7,17 @@ import java.lang.reflect.InvocationTargetException;
 
 public class Events {
 
-    JDABuilder builder;
-
-    public Events(JDABuilder builder) {
-        this.builder = builder;
-    }
-
-    public void addEvents() throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        File folder = new File("./src/main/java/events");
+    public void addEvents(JDABuilder builder) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        File folder = new File("./classes/events");
         File[] listOfFiles = folder.listFiles();
-
         assert listOfFiles != null;
 
         for (File file : listOfFiles) {
-            if (file.getName().endsWith(".java")) {
+            if (file.getName().endsWith(".class")) {
                 String[] splitFileName = file.getName().split("\\.");
                 String fileName = splitFileName[0];
                 Class<?> event = Class.forName("events." + fileName);
-                builder.addEventListeners(event.getConstructor(JDABuilder.class).newInstance(builder));
+                builder.addEventListeners(event.getConstructor().newInstance());
             }
         }
     }
