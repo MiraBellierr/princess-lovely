@@ -1,5 +1,8 @@
 package commands.Utility;
 
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import utils.Prefix;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -27,6 +30,10 @@ public class Help {
         return "utility";
     }
 
+    public CommandData slashCommand() {
+        return new CommandData(this.getName(), this.getDescription());
+    }
+
     public void run(@NotNull MessageReceivedEvent event, @NotNull ArrayList<String> args) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         if (args.toArray().length > 0) {
             getCMD(event, args.get(0).toLowerCase());
@@ -34,6 +41,40 @@ public class Help {
         else {
             getAll(event);
         }
+    }
+
+    public void runSlashCommand(@NotNull SlashCommandEvent event) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
+        EmbedBuilder embed = new EmbedBuilder()
+                .setAuthor(event.getUser().getName(), null, event.getUser().getEffectiveAvatarUrl())
+                .setColor(new Color(205, 28, 108))
+                .setThumbnail(event.getUser().getEffectiveAvatarUrl())
+                .setTimestamp(Instant.from(ZonedDateTime.now()))
+                .setTitle(String.format("%s Help Command", event.getJDA().getSelfUser().getName()));
+
+        File folder = new File("./classes/commands");
+        File[] categories = folder.listFiles();
+        List<String> list = new ArrayList<>();
+        List<String> list2 = new ArrayList<>();
+
+        assert categories != null;
+        for (File category : categories) {
+            File categoryFolder = new File("./classes/commands/" + category.getName());
+            File[] commands = categoryFolder.listFiles();
+
+            assert commands != null;
+            for (File command : commands) {
+                Class<?> commandClass = Class.forName(String.format("commands.%s.%s", category.getName(), command.getName().split("\\.")[0]));
+                Object o = commandClass.getDeclaredConstructor().newInstance();
+                list.add("`" + commandClass.getDeclaredMethod("getName").invoke(o).toString().toLowerCase() + "`");
+            }
+
+            list2.add("**" + category.getName() + "**\n" + String.join(", ", list));
+            list.clear();
+        }
+
+        embed.setDescription("<:discord:885340297733746798> [Invite Princess Lovely](https://discord.com/api/oauth2/authorize?client_id=907161843221536799&permissions=0&scope=bot%20applications.commands)\n<:kanna:885340978834198608> [Kanna's Kawaii Klubhouse](https://discord.gg/NcPeGuNEdc)\n<:blurplegithub:885340297683406878> [Source Code](https://github.com/MiraBellierr/princess-lovely)\n\n" + String.join("\n", list2));
+
+        event.replyEmbeds(embed.build()).queue();
     }
 
     private void getAll(@NotNull MessageReceivedEvent event) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
@@ -67,7 +108,7 @@ public class Help {
         }
 
         embed.setDescription("<:discord:885340297733746798> [Invite Princess Lovely](https://discord.com/api/oauth2/authorize?client_id=907161843221536799&permissions=0&scope=bot%20applications.commands)\n<:kanna:885340978834198608> [Kanna's Kawaii Klubhouse](https://discord.gg/NcPeGuNEdc)\n<:blurplegithub:885340297683406878> [Source Code](https://github.com/MiraBellierr/princess-lovely)\n\n" + String.join("\n", list2));
-        event.getChannel().sendMessage(embed.build()).queue();
+        event.getChannel().sendMessageEmbeds(embed.build()).queue();
     }
 
     private void getCMD(@NotNull MessageReceivedEvent event, String input) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
@@ -109,7 +150,7 @@ public class Help {
             embed.setDescription(String.join("\n", list));
         }
 
-        event.getChannel().sendMessage(embed.build()).queue();
+        event.getChannel().sendMessageEmbeds(embed.build()).queue();
         list.clear();
     }
 }

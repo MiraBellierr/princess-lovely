@@ -1,7 +1,10 @@
+import handlers.Commands;
 import handlers.Events;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import utils.Prefix;
 
 import javax.security.auth.login.LoginException;
@@ -20,10 +23,12 @@ public class Bot {
         FileInputStream fis = new FileInputStream(fileName);
         prop.load(fis);
 
-        JDABuilder builder = JDABuilder.createDefault(prop.getProperty("TOKEN"), EnumSet.allOf(GatewayIntent.class));
+        JDABuilder builder = JDABuilder.createDefault(prop.getProperty("TOKEN"), EnumSet.allOf(GatewayIntent.class))
+                .setActivity(Activity.playing(String.format("Type %shelp", new Prefix().getPrefix())))
+                .setMemberCachePolicy(MemberCachePolicy.ALL);
 
-        builder.setActivity(Activity.playing(String.format("Type %shelp", new Prefix().getPrefix())));
         new Events().addEvents(builder);
+
         builder.build().awaitReady();
     }
 }

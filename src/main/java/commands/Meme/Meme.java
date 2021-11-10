@@ -2,7 +2,9 @@ package commands.Meme;
 
 import com.google.gson.Gson;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
 import utils.memes.DataRetrieve;
 import utils.memes.Memes;
@@ -22,18 +24,44 @@ public class Meme {
     }
 
     public String getName() {
-        return "Meme";
+        return "meme";
     }
 
     public String getCategory() {
         return "meme";
     }
 
-    public void run(MessageReceivedEvent event, ArrayList<String> args) throws IOException, InterruptedException {
-        sendRandomMeme(event);
+    public CommandData slashCommand() {
+        return new CommandData(this.getName(), this.getDescription());
     }
 
-    private void sendRandomMeme(@NotNull MessageReceivedEvent event) throws IOException, InterruptedException {
+    public void run(@NotNull MessageReceivedEvent event, ArrayList<String> args) throws IOException, InterruptedException {
+        DataRetrieve result = sendRandomMeme();
+
+        EmbedBuilder embed = new EmbedBuilder()
+                .setAuthor(String.format("By %s - ", result.author), null, result.all_awardings.toArray().length > 0 ? result.all_awardings.get((int) Math.floor(Math.random() * result.all_awardings.toArray().length)).icon_url : "https://www.kannacoco.me")
+                .setTitle(result.title, String.format("https://www.reddit.com%s", result.permalink))
+                .setImage(result.url)
+                .setColor(new Color(205, 28, 108))
+                .setFooter(String.format("\u2B06 %d | \uD83D\uDCAC %d | \uD83C\uDFC5 %d", result.ups, result.num_comments, result.total_awards_received));
+
+        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+    }
+
+    public void runSlashCommand(@NotNull SlashCommandEvent event) throws IOException, InterruptedException {
+        DataRetrieve result = sendRandomMeme();
+
+        EmbedBuilder embed = new EmbedBuilder()
+                .setAuthor(String.format("By %s - ", result.author), null, result.all_awardings.toArray().length > 0 ? result.all_awardings.get((int) Math.floor(Math.random() * result.all_awardings.toArray().length)).icon_url : "https://www.kannacoco.me")
+                .setTitle(result.title, String.format("https://www.reddit.com%s", result.permalink))
+                .setImage(result.url)
+                .setColor(new Color(205, 28, 108))
+                .setFooter(String.format("\u2B06 %d | \uD83D\uDCAC %d | \uD83C\uDFC5 %d", result.ups, result.num_comments, result.total_awards_received));
+
+        event.replyEmbeds(embed.build()).queue();
+    }
+
+    private DataRetrieve sendRandomMeme() throws IOException, InterruptedException {
         String[] reddits = { "memes", "dankmemes", "Memes_Of_The_Dank", "wholesomememes", "terriblefacebookmemes", "pewdiepiesubmissions" };
         String random = reddits[(int) Math.floor(Math.random() * reddits.length)];
 
@@ -50,13 +78,6 @@ public class Meme {
             result = obj.data.children.get((int) Math.floor(Math.random() * obj.data.children.toArray().length)).data;
         }
 
-        EmbedBuilder embed = new EmbedBuilder()
-                .setAuthor(String.format("By %s - ", result.author), null, result.all_awardings.toArray().length > 0 ? result.all_awardings.get((int) Math.floor(Math.random() * result.all_awardings.toArray().length)).icon_url : "https://www.kannacoco.me")
-                .setTitle(result.title, String.format("https://www.reddit.com%s", result.permalink))
-                .setImage(result.url)
-                .setColor(new Color(205, 28, 108))
-                .setFooter(String.format("⬆️ %d | \uD83D\uDCAC %d | \uD83C\uDFC5 %d", result.ups, result.num_comments, result.total_awards_received));
-
-        event.getChannel().sendMessage(embed.build()).queue();
+        return result;
     }
 }

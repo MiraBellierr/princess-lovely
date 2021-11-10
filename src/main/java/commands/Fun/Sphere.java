@@ -1,7 +1,10 @@
 package commands.Fun;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -21,6 +24,10 @@ public class Sphere {
 
     public String getCategory() {
         return "Fun";
+    }
+
+    public CommandData slashCommand() {
+        return new CommandData(this.getName(), this.getDescription()).addOption(OptionType.INTEGER, "radius", "Provide a radius number", true);
     }
 
     public void run(MessageReceivedEvent event, @NotNull ArrayList<String> args) {
@@ -54,6 +61,26 @@ public class Sphere {
                 .setTimestamp(Instant.from(ZonedDateTime.now()))
                 .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl());
 
-        event.getChannel().sendMessage(embed.build()).queue();
+        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+    }
+
+    public void runSlashCommand(@NotNull SlashCommandEvent event) {
+        double number = event.getOptions().get(0).getAsDouble();
+        long radius = Math.round(number);
+        long volume = Math.round(1.333 * 3.142 * radius * radius * radius);
+        long diameter = Math.round(2 * radius);
+        long area = Math.round(4 * 3.142 * radius * radius);
+
+        EmbedBuilder embed = new EmbedBuilder()
+                .setAuthor(event.getUser().getName(), null, event.getUser().getEffectiveAvatarUrl())
+                .setTitle(String.format("Radius is %f", number))
+                .setColor(new Color(205, 28, 108))
+                .addField("Diameter:", String.valueOf(diameter), true)
+                .addField("Volume Of Sphere:", String.valueOf(volume), true)
+                .addField("Surface Area Of Sphere:", String.valueOf(area), true)
+                .setTimestamp(Instant.from(ZonedDateTime.now()))
+                .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+
+        event.replyEmbeds(embed.build()).queue();
     }
 }

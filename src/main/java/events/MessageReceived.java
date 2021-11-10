@@ -1,6 +1,7 @@
 package events;
 
 import handlers.Commands;
+import org.jetbrains.annotations.NotNull;
 import utils.Prefix;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
@@ -14,7 +15,7 @@ import java.util.Collections;
 public class MessageReceived extends ListenerAdapter {
 
     @Override
-    public void onMessageReceived(MessageReceivedEvent event) {
+    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         Message message = event.getMessage();
         String prefix = new Prefix().getPrefix();
 
@@ -29,7 +30,7 @@ public class MessageReceived extends ListenerAdapter {
         args.remove(0);
 
         try {
-            new Commands(cmd, event, args);
+            new Commands().addTextCommands(cmd, event, args);
         } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }

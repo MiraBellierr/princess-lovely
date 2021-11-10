@@ -2,7 +2,9 @@ package commands.Fun;
 
 import com.google.gson.Gson;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -29,6 +31,10 @@ public class Advice {
         return "Fun";
     }
 
+    public CommandData slashCommand() {
+        return new CommandData(this.getName(), this.getDescription());
+    }
+
     public void run(@NotNull MessageReceivedEvent event, ArrayList<String> args) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -46,6 +52,26 @@ public class Advice {
                 .setTimestamp(Instant.from(ZonedDateTime.now()))
                 .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl());
 
-        event.getChannel().sendMessage(embed.build()).queue();
+        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+    }
+
+    public void runSlashCommand(SlashCommandEvent event) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://api.adviceslip.com/advice"))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        utils.advice.Advice obj = new Gson().fromJson(response.body(), utils.advice.Advice.class);
+
+        EmbedBuilder embed = new EmbedBuilder()
+                .setAuthor(event.getUser().getName(), null, event.getUser().getEffectiveAvatarUrl())
+                .setTitle(String.format("Advice #%d", obj.slip.id))
+                .setColor(new Color(205, 28, 108))
+                .setDescription(obj.slip.advice)
+                .setTimestamp(Instant.from(ZonedDateTime.now()))
+                .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+
+        event.replyEmbeds(embed.build()).queue();
     }
 }
