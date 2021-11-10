@@ -1,10 +1,9 @@
-import handlers.Commands;
 import handlers.Events;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import utils.Mongo;
 import utils.Prefix;
 
 import javax.security.auth.login.LoginException;
@@ -30,5 +29,7 @@ public class Bot {
         new Events().addEvents(builder);
 
         builder.build().awaitReady();
+
+        new Mongo();
     }
 }
