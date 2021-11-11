@@ -34,7 +34,7 @@ public class Eightball {
             event.getMessage().reply("Gimme a question!").mentionRepliedUser(false).queue();
         }
         else {
-            event.getMessage().reply(randomResponse).mentionRepliedUser(false).queue();
+            event.getMessage().reply(String.format("You: %s\n\nMe: %s", String.join(" ", args), randomResponse)).mentionRepliedUser(false).queue();
         }
     }
 
