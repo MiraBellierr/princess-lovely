@@ -42,10 +42,10 @@ public class Alignment {
                 .setTimestamp(Instant.from(ZonedDateTime.now()))
                 .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl());
 
-        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+        event.getMessage().replyEmbeds(embed.build()).mentionRepliedUser(false).queue();
     }
 
-    public void runSlashCommand(SlashCommandEvent event) {
+    public void runSlashCommand(@NotNull SlashCommandEvent event) {
         String[] alignments = { "Lawful Good", "Neutral Good", "Chaotic Good", "Lawful Neutral", "True Neutral", "Chaotic Neutral", "Lawful Evil", "Neutral Evil", "Chaotic Evil" };
         double id = Double.parseDouble(event.getUser().getId());
         int choice = (int) (id % alignments.length);

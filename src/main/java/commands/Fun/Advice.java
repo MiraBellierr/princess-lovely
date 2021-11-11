@@ -52,10 +52,10 @@ public class Advice {
                 .setTimestamp(Instant.from(ZonedDateTime.now()))
                 .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl());
 
-        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+        event.getMessage().replyEmbeds(embed.build()).mentionRepliedUser(false).queue();
     }
 
-    public void runSlashCommand(SlashCommandEvent event) throws IOException, InterruptedException {
+    public void runSlashCommand(@NotNull SlashCommandEvent event) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.adviceslip.com/advice"))

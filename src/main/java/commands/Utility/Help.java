@@ -1,12 +1,11 @@
 package commands.Utility;
 
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import utils.Prefix;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
+import utils.Prefix;
 
 import java.awt.*;
 import java.io.File;
@@ -108,7 +107,7 @@ public class Help {
         }
 
         embed.setDescription("<:discord:885340297733746798> [Invite Princess Lovely](https://discord.com/api/oauth2/authorize?client_id=907161843221536799&permissions=0&scope=bot%20applications.commands)\n<:kanna:885340978834198608> [Kanna's Kawaii Klubhouse](https://discord.gg/NcPeGuNEdc)\n<:blurplegithub:885340297683406878> [Source Code](https://github.com/MiraBellierr/princess-lovely)\n\n" + String.join("\n", list2));
-        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+        event.getMessage().replyEmbeds(embed.build()).mentionRepliedUser(false).queue();
     }
 
     private void getCMD(@NotNull MessageReceivedEvent event, String input) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
@@ -150,7 +149,7 @@ public class Help {
             embed.setDescription(String.join("\n", list));
         }
 
-        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+        event.getMessage().replyEmbeds(embed.build()).mentionRepliedUser(false).queue();
         list.clear();
     }
 }

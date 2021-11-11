@@ -40,7 +40,7 @@ public class Love {
     }
 
     public void run(@NotNull MessageReceivedEvent event, @NotNull ArrayList<String> args) throws IOException {
-        Member person = event.getGuild().getMembers().get((int) Math.floor(Math.random() * event.getGuild().getMembers().toArray().length));
+        Member person = event.getGuild().getMembers().get((int) java.lang.Math.floor(java.lang.Math.random() * event.getGuild().getMembers().toArray().length));
 
         if (args.toArray().length > 0) person = new utils.Member().getMember(event, args.get(0));
 
@@ -53,8 +53,8 @@ public class Love {
         }
 
         if (Objects.requireNonNull(users.first()).get(person.getId()) == null) {
-            double loveMeter = Math.floor(Math.random() * 100);
-			double loveIndex = Math.floor(loveMeter / 10);
+            double loveMeter = java.lang.Math.floor(java.lang.Math.random() * 100);
+			double loveIndex = java.lang.Math.floor(loveMeter / 10);
             String loveLever = new String(new char[(int) loveIndex]).replace("\0", ":sparkling_heart:") + new String(new char[10 - (int) loveIndex]).replace("\0", ":black_heart:");
 
             loveCollection.updateOne(Filters.eq("_userId", event.getAuthor().getId()), Updates.set(person.getId(), loveMeter));
@@ -64,15 +64,15 @@ public class Love {
                     .setTimestamp(Instant.from(ZonedDateTime.now()))
                     .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                     .setColor(new Color(205, 28, 108))
-                    .addField(String.format("\u2601 **%s** loves **%s** this much:", person.getUser().getName(), event.getAuthor().getName()), String.format("\uD83D\uDC9F %s\n\n%s", (int) Math.floor(loveMeter), loveLever), false);
+                    .addField(String.format("\u2601 **%s** loves **%s** this much:", person.getUser().getName(), event.getAuthor().getName()), String.format("\uD83D\uDC9F %s\n\n%s", (int) java.lang.Math.floor(loveMeter), loveLever), false);
 
-            event.getChannel().sendMessageEmbeds(embed.build()).queue();
+            event.getMessage().replyEmbeds(embed.build()).mentionRepliedUser(false).queue();
 
             return;
         }
 
         double loveMeter = Objects.requireNonNull(users.first()).getDouble(person.getId());
-        double loveIndex = Math.floor(loveMeter / 10);
+        double loveIndex = java.lang.Math.floor(loveMeter / 10);
         String loveLever = new String(new char[(int) loveIndex]).replace("\0", ":sparkling_heart:") + new String(new char[10 - (int) loveIndex]).replace("\0", ":black_heart:");
 
         EmbedBuilder embed = new EmbedBuilder()
@@ -80,13 +80,13 @@ public class Love {
                 .setTimestamp(Instant.from(ZonedDateTime.now()))
                 .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                 .setColor(new Color(205, 28, 108))
-                .addField(String.format("\u2601 **%s** loves **%s** this much:", person.getUser().getName(), event.getAuthor().getName()), String.format("\uD83D\uDC9F %s\n\n%s", (int) Math.floor(loveMeter), loveLever), false);
+                .addField(String.format("\u2601 **%s** loves **%s** this much:", person.getUser().getName(), event.getAuthor().getName()), String.format("\uD83D\uDC9F %s\n\n%s", (int) java.lang.Math.floor(loveMeter), loveLever), false);
 
-        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+        event.getMessage().replyEmbeds(embed.build()).mentionRepliedUser(false).queue();
     }
 
     public void runSlashCommand(@NotNull SlashCommandEvent event) throws IOException {
-        Member person = Objects.requireNonNull(event.getGuild()).getMembers().get((int) Math.floor(Math.random() * event.getGuild().getMembers().toArray().length));
+        Member person = Objects.requireNonNull(event.getGuild()).getMembers().get((int) java.lang.Math.floor(java.lang.Math.random() * event.getGuild().getMembers().toArray().length));
 
         if (event.getOptions().toArray().length > 0) person = event.getOptions().get(0).getAsMember();
 
@@ -100,8 +100,8 @@ public class Love {
 
         assert person != null;
         if (Objects.requireNonNull(users.first()).get(person.getId()) == null) {
-            double loveMeter = Math.floor(Math.random() * 100);
-            double loveIndex = Math.floor(loveMeter / 10);
+            double loveMeter = java.lang.Math.floor(java.lang.Math.random() * 100);
+            double loveIndex = java.lang.Math.floor(loveMeter / 10);
             String loveLever = new String(new char[(int) loveIndex]).replace("\0", ":sparkling_heart:") + new String(new char[10 - (int) loveIndex]).replace("\0", ":black_heart:");
 
             loveCollection.updateOne(Filters.eq("_userId", event.getUser().getId()), Updates.set(person.getId(), loveMeter));
@@ -111,7 +111,7 @@ public class Love {
                     .setTimestamp(Instant.from(ZonedDateTime.now()))
                     .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                     .setColor(new Color(205, 28, 108))
-                    .addField(String.format("\u2601 **%s** loves **%s** this much:", person.getUser().getName(), event.getUser().getName()), String.format("\uD83D\uDC9F %s\n\n%s", (int) Math.floor(loveMeter), loveLever), false);
+                    .addField(String.format("\u2601 **%s** loves **%s** this much:", person.getUser().getName(), event.getUser().getName()), String.format("\uD83D\uDC9F %s\n\n%s", (int) java.lang.Math.floor(loveMeter), loveLever), false);
 
             event.replyEmbeds(embed.build()).queue();
 
@@ -119,7 +119,7 @@ public class Love {
         }
 
         double loveMeter = Objects.requireNonNull(users.first()).getDouble(person.getId());
-        double loveIndex = Math.floor(loveMeter / 10);
+        double loveIndex = java.lang.Math.floor(loveMeter / 10);
         String loveLever = new String(new char[(int) loveIndex]).replace("\0", ":sparkling_heart:") + new String(new char[10 - (int) loveIndex]).replace("\0", ":black_heart:");
 
         EmbedBuilder embed = new EmbedBuilder()
@@ -127,7 +127,7 @@ public class Love {
                 .setTimestamp(Instant.from(ZonedDateTime.now()))
                 .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                 .setColor(new Color(205, 28, 108))
-                .addField(String.format("\u2601 **%s** loves **%s** this much:", person.getUser().getName(), event.getUser().getName()), String.format("\uD83D\uDC9F %s\n\n%s", (int) Math.floor(loveMeter), loveLever), false);
+                .addField(String.format("\u2601 **%s** loves **%s** this much:", person.getUser().getName(), event.getUser().getName()), String.format("\uD83D\uDC9F %s\n\n%s", (int) java.lang.Math.floor(loveMeter), loveLever), false);
 
         event.replyEmbeds(embed.build()).queue();
     }

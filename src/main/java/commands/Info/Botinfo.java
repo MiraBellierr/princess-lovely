@@ -43,6 +43,7 @@ public class Botinfo {
         String cacheUsers = String.valueOf(event.getJDA().getUsers().toArray().length);
         String servers = String.valueOf(event.getJDA().getGuilds().toArray().length);
         String version = "v1.0";
+        String database = "mongo-java-driver v3.12.10";
         String library = String.format("JDA v%s", JDAInfo.VERSION);
         String JRE = String.format("Java %s", System.getProperty("java.version"));
 
@@ -57,11 +58,11 @@ public class Botinfo {
                 .setTitle("Bot Information")
                 .setThumbnail(event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                 .setColor(new Color(205, 28, 108))
-                .setDescription(String.format("**- Developer:** %s\n**- Tag:** %s\n**- Created At:** %s\n**- Servers**: %s servers\n**- Cached Users**: %s users\n**- Version:** %s\n**- Library:** %s\n**- JRE:** %s\n**- Gateaway Ping:** %sms", owner, event.getJDA().getSelfUser().getAsTag(), formattedTime, servers, cacheUsers, version, library, JRE, event.getJDA().getGatewayPing()))
+                .setDescription(String.format("**- Developer:** %s\n**- Tag:** %s\n**- Created At:** %s\n**- Servers**: %s servers\n**- Cached Users**: %s users\n**- Version:** %s\n**- Library:** %s\n**- Database:** %s\n**- JRE:** %s\n**- Gateaway Ping:** %sms", owner, event.getJDA().getSelfUser().getAsTag(), formattedTime, servers, cacheUsers, version, library, database, JRE, event.getJDA().getGatewayPing()))
                 .setTimestamp(Instant.from(ZonedDateTime.now()))
                 .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl());
 
-        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+        event.getMessage().replyEmbeds(embed.build()).mentionRepliedUser(false).queue();
     }
 
     public void runSlashCommand(@NotNull SlashCommandEvent event) throws ParseException {

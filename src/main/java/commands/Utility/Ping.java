@@ -1,6 +1,5 @@
 package commands.Utility;
 
-import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -27,9 +26,8 @@ public class Ping {
     }
 
     public void run(@NotNull MessageReceivedEvent event, ArrayList<String> args) {
-        MessageChannel channel = event.getChannel();
         long time = System.currentTimeMillis();
-        channel.sendMessage("Pong!").queue(response -> response.editMessageFormat("Pong: %d ms", System.currentTimeMillis() - time).queue());
+        event.getMessage().reply("Pong!").mentionRepliedUser(false).queue(response -> response.editMessageFormat("Pong: %d ms", System.currentTimeMillis() - time).mentionRepliedUser(false).queue());
     }
 
     public void runSlashCommand(@NotNull SlashCommandEvent event) {

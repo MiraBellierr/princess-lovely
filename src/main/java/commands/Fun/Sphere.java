@@ -32,7 +32,7 @@ public class Sphere {
 
     public void run(MessageReceivedEvent event, @NotNull ArrayList<String> args) {
         if (args.toArray().length < 1) {
-            event.getChannel().sendMessage("You didn't provide radius!\n\n**NOTE**:\n- This command is to calculate the volume and the surface area of sphere using the radius entered by the user\n- This is my first command I created when I started developing this bot.").queue();
+            event.getMessage().reply("You didn't provide radius!\n\n**NOTE**:\n- This command is to calculate the volume and the surface area of sphere using the radius entered by the user\n- This is my first command I created when I started developing this bot.").mentionRepliedUser(false).queue();
             return;
         }
 
@@ -42,18 +42,18 @@ public class Sphere {
             number = Double.parseDouble(args.get(0));
         }
         catch(NumberFormatException e) {
-            event.getChannel().sendMessage("That doesn't seem to be a valid number!").queue();
+            event.getMessage().reply("That doesn't seem to be a valid number!").mentionRepliedUser(false).queue();
             return;
         }
 
-        long radius = Math.round(number);
-        long volume = Math.round(1.333 * 3.142 * radius * radius * radius);
-        long diameter = Math.round(2 * radius);
-        long area = Math.round(4 * 3.142 * radius * radius);
+        long radius = java.lang.Math.round(number);
+        long volume = java.lang.Math.round(1.333 * 3.142 * radius * radius * radius);
+        long diameter = java.lang.Math.round(2 * radius);
+        long area = java.lang.Math.round(4 * 3.142 * radius * radius);
 
         EmbedBuilder embed = new EmbedBuilder()
                 .setAuthor(event.getAuthor().getName(), null, event.getAuthor().getEffectiveAvatarUrl())
-                .setTitle(String.format("Radius is %f", number))
+                .setTitle(String.format("Radius is %d", (int) number))
                 .setColor(new Color(205, 28, 108))
                 .addField("Diameter:", String.valueOf(diameter), true)
                 .addField("Volume Of Sphere:", String.valueOf(volume), true)
@@ -61,15 +61,15 @@ public class Sphere {
                 .setTimestamp(Instant.from(ZonedDateTime.now()))
                 .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl());
 
-        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+        event.getMessage().replyEmbeds(embed.build()).mentionRepliedUser(false).queue();
     }
 
     public void runSlashCommand(@NotNull SlashCommandEvent event) {
         double number = event.getOptions().get(0).getAsDouble();
-        long radius = Math.round(number);
-        long volume = Math.round(1.333 * 3.142 * radius * radius * radius);
-        long diameter = Math.round(2 * radius);
-        long area = Math.round(4 * 3.142 * radius * radius);
+        long radius = java.lang.Math.round(number);
+        long volume = java.lang.Math.round(1.333 * 3.142 * radius * radius * radius);
+        long diameter = java.lang.Math.round(2 * radius);
+        long area = java.lang.Math.round(4 * 3.142 * radius * radius);
 
         EmbedBuilder embed = new EmbedBuilder()
                 .setAuthor(event.getUser().getName(), null, event.getUser().getEffectiveAvatarUrl())
