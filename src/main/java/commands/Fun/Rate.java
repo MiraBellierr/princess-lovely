@@ -1,11 +1,15 @@
 package commands.Fun;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
+import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 public class Rate {
@@ -45,7 +49,14 @@ public class Rate {
             event.getMessage().reply("Give me something to rate").mentionRepliedUser(false).queue();
         }
         else {
-            event.getMessage().reply(String.format("You: Rate %s\n\nMe: %s", String.join(" ", args), answer)).mentionRepliedUser(false).queue();
+            EmbedBuilder embed = new EmbedBuilder()
+                    .setDescription(String.format("You: rate %s\n\nMe: %s", String.join(" ", args), answer))
+                    .setColor(new Color(205, 28, 108))
+                    .setAuthor(event.getAuthor().getName(), null, event.getAuthor().getEffectiveAvatarUrl())
+                    .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl())
+                    .setTimestamp(Instant.from(ZonedDateTime.now()));
+
+            event.getMessage().replyEmbeds(embed.build()).mentionRepliedUser(false).queue();
         }
     }
 
@@ -64,6 +75,13 @@ public class Rate {
 
         String answer = answers[(int) java.lang.Math.floor(java.lang.Math.random() * answers.length)];
 
-        event.reply(String.format("You: Rate %s\n\nMe: %s", event.getOptions().get(0).getAsString(), answer)).queue();
+        EmbedBuilder embed = new EmbedBuilder()
+                .setDescription(String.format("You: rate %s\n\nMe: %s", event.getOptions().get(0).getAsString(), answer))
+                .setColor(new Color(205, 28, 108))
+                .setAuthor(event.getUser().getName(), null, event.getUser().getEffectiveAvatarUrl())
+                .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl())
+                .setTimestamp(Instant.from(ZonedDateTime.now()));
+
+        event.replyEmbeds(embed.build()).queue();
     }
 }

@@ -1,11 +1,13 @@
 package commands.Fun;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -13,6 +15,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 public class Math {
@@ -44,7 +48,14 @@ public class Math {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        event.getMessage().reply(String.format("\uD83D\uDCDD %s = %s", expr, response.body())).mentionRepliedUser(false).queue();
+        EmbedBuilder embed = new EmbedBuilder()
+                .setDescription(String.format("\uD83D\uDCDD %s = %s", expr, response.body()))
+                .setColor(new Color(205, 28, 108))
+                .setAuthor(event.getAuthor().getName(), null, event.getAuthor().getEffectiveAvatarUrl())
+                .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl())
+                .setTimestamp(Instant.from(ZonedDateTime.now()));
+
+        event.getMessage().replyEmbeds(embed.build()).mentionRepliedUser(false).queue();
     }
 
     public void runSlashCommand(@NotNull SlashCommandEvent event) throws IOException, InterruptedException {
@@ -57,6 +68,13 @@ public class Math {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        event.reply(String.format("\uD83D\uDCDD %s = %s", expr, response.body())).queue();
+        EmbedBuilder embed = new EmbedBuilder()
+                .setDescription(String.format("\uD83D\uDCDD %s = %s", expr, response.body()))
+                .setColor(new Color(205, 28, 108))
+                .setAuthor(event.getUser().getName(), null, event.getUser().getEffectiveAvatarUrl())
+                .setFooter(event.getJDA().getSelfUser().getAsTag(), event.getJDA().getSelfUser().getEffectiveAvatarUrl())
+                .setTimestamp(Instant.from(ZonedDateTime.now()));
+
+        event.replyEmbeds(embed.build()).queue();
     }
 }
