@@ -90,13 +90,13 @@ public class Exit12 {
         data.put("template_id", "124822590");
         data.put("username", new Config().getConfig().getProperty("IMG_USERNAME"));
         data.put("password", new Config().getConfig().getProperty("IMG_PASSWORD"));
-        data.put("boxes[0][text]", text2);
+        data.put("boxes[0][text]", text0);
         data.put("boxes[0][outline_color]", "#000000");
         data.put("boxes[0][color]", "#ffffff");
-        data.put("boxes[1][text]", text1);
+        data.put("boxes[1][text]", text2);
         data.put("boxes[1][outline_color]", "#000000");
         data.put("boxes[1][color]", "#ffffff");
-        data.put("boxes[2][text]", text0);
+        data.put("boxes[2][text]", text1);
         data.put("boxes[2][outline_color]", "#000000");
         data.put("boxes[2][color]", "#ffffff");
 
