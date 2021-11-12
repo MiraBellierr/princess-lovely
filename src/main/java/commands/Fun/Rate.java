@@ -63,14 +63,14 @@ public class Rate {
     public void runSlashCommand(@NotNull SlashCommandEvent event) {
         String[] answers = {
                 // Postive
-                "💯", "Yes", "me likey", "👀", "😍😍", "he's cool yea", "she's cool yea", "uhhhh yes", "indeed", "would bang", "my favorite", "pretty good", "music to my ears",
+                ":100:", "Yes", "me likey", ":eyes:", ":heart_eyes::heart_eyes:", "he's cool yea", "she's cool yea", "uhhhh yes", "indeed", "would bang", "my favorite", "pretty good", "music to my ears",
                 "dreamy", "Cool", "at least it's not bad", "not the best but still good", "AMAZING", "dude, that's like, awesome",
                 "they're cute", "underrated",
 
                 // Negative
-                "how about no", "yeah no", "needs much improvement", "barely ok, in short it's shit", "💩 basically", "just horrible", "never ask me to rate that again", "overrated",
+                "how about no", "yeah no", "needs much improvement", "barely ok, in short it's shit", ":poop: basically", "just horrible", "never ask me to rate that again", "overrated",
                 "nobody wants to see that", "i disapprove", "i'm not allowed to say", "that's goodn't", "oh no", "very uhh, how do i say this without sounding rude", "might as well throw it away",
-                "this makes me wanna 🤮", "what!! Lol", "you better be joking"
+                "this makes me wanna :face_vomiting:", "what!! Lol", "you better be joking"
         };
 
         String answer = answers[(int) java.lang.Math.floor(java.lang.Math.random() * answers.length)];
