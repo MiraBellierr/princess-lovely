@@ -43,14 +43,14 @@ public class Drake {
 
     public void run(MessageReceivedEvent event, @NotNull ArrayList<String> args) throws IOException, InterruptedException {
         if (args.toArray().length < 1) {
-            event.getMessage().reply(String.format("Please input a text. `%s%s text1 | text2", new Prefix().getPrefix(), this.getName())).mentionRepliedUser(false).queue();
+            event.getMessage().reply(String.format("Please input a text. `%s%s text1 | text2`", new Prefix().getPrefix(), this.getName())).mentionRepliedUser(false).queue();
             return;
         }
 
         String[] texts = String.join(" ", args).split("\\|");
 
         if (texts.length < 2) {
-            event.getMessage().reply(String.format("Please input a text. `%s%s text1 | text2", new Prefix().getPrefix(), this.getName())).mentionRepliedUser(false).queue();
+            event.getMessage().reply(String.format("Please input a text. `%s%s text1 | text2`", new Prefix().getPrefix(), this.getName())).mentionRepliedUser(false).queue();
             return;
         }
 
@@ -58,8 +58,13 @@ public class Drake {
         data.put("template_id", "181913649");
         data.put("username", new Config().getConfig().getProperty("IMG_USERNAME"));
         data.put("password", new Config().getConfig().getProperty("IMG_PASSWORD"));
-        data.put("text0", texts[0]);
-        data.put("text1", texts[1]);
+        data.put("font", "arial");
+        data.put("boxes[0][text]", texts[0]);
+        data.put("boxes[0][outline_color]", "#ffffff");
+        data.put("boxes[0][color]", "#000000");
+        data.put("boxes[1][text]", texts[1]);
+        data.put("boxes[1][outline_color]", "#ffffff");
+        data.put("boxes[1][color]", "#000000");
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -81,8 +86,12 @@ public class Drake {
         data.put("template_id", "181913649");
         data.put("username", new Config().getConfig().getProperty("IMG_USERNAME"));
         data.put("password", new Config().getConfig().getProperty("IMG_PASSWORD"));
-        data.put("text0", text0);
-        data.put("text1", text1);
+        data.put("boxes[0][text]", text0);
+        data.put("boxes[0][outline_color]", "#ffffff");
+        data.put("boxes[0][color]", "#000000");
+        data.put("boxes[1][text]", text1);
+        data.put("boxes[1][outline_color]", "#ffffff");
+        data.put("boxes[1][color]", "#000000");
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
