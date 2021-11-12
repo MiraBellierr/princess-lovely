@@ -1,6 +1,7 @@
 package commands.Meme;
 
 import com.google.gson.Gson;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -70,6 +71,29 @@ public class Drake {
         ImgData result = new Gson().fromJson(response.body(), ImgData.class);
 
         event.getMessage().reply(result.data.url).mentionRepliedUser(false).queue();
+    }
+
+    public void runSlashCommand(@NotNull SlashCommandEvent event) throws IOException, InterruptedException {
+        String text0 = event.getOptions().get(0).getAsString();
+        String text1 = event.getOptions().get(1).getAsString();
+
+        Map<Object, Object> data = new HashMap<>();
+        data.put("template_id", "181913649");
+        data.put("username", new Config().getConfig().getProperty("IMG_USERNAME"));
+        data.put("password", new Config().getConfig().getProperty("IMG_PASSWORD"));
+        data.put("text0", text0);
+        data.put("text1", text1);
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(String.format("https://api.imgflip.com/caption_image?%s", buildFormDataFromMap(data))))
+                .header("Content-Type", "application/json")
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        ImgData result = new Gson().fromJson(response.body(), ImgData.class);
+
+        event.reply(result.data.url).queue();
     }
 
     private static @NotNull String buildFormDataFromMap(@NotNull Map<Object, Object> data) {
