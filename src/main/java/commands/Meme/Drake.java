@@ -86,6 +86,7 @@ public class Drake {
         data.put("template_id", "181913649");
         data.put("username", new Config().getConfig().getProperty("IMG_USERNAME"));
         data.put("password", new Config().getConfig().getProperty("IMG_PASSWORD"));
+        data.put("font", "arial");
         data.put("boxes[0][text]", text0);
         data.put("boxes[0][outline_color]", "#ffffff");
         data.put("boxes[0][color]", "#000000");
