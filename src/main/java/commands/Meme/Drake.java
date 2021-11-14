@@ -32,7 +32,7 @@ public class Drake {
     }
 
     public String getCategory() {
-        return "Meme";
+        return "\uD83E\uDD23 Meme";
     }
 
     public CommandData slashCommand() {

@@ -26,7 +26,7 @@ public class Help {
     }
 
     public String getCategory() {
-        return "utility";
+        return "\u2728 Utility";
     }
 
     public CommandData slashCommand() {
@@ -59,15 +59,17 @@ public class Help {
         for (File category : categories) {
             File categoryFolder = new File("./classes/commands/" + category.getName());
             File[] commands = categoryFolder.listFiles();
+            String cat = null;
 
             assert commands != null;
             for (File command : commands) {
                 Class<?> commandClass = Class.forName(String.format("commands.%s.%s", category.getName(), command.getName().split("\\.")[0]));
                 Object o = commandClass.getDeclaredConstructor().newInstance();
                 list.add("`" + commandClass.getDeclaredMethod("getName").invoke(o).toString().toLowerCase() + "`");
+                cat = commandClass.getDeclaredMethod("getCategory").invoke(o).toString();
             }
 
-            list2.add("**" + category.getName() + "**\n" + String.join(", ", list));
+            list2.add("**" + cat + "**\n" + String.join(" ", list));
             list.clear();
         }
 
@@ -89,6 +91,7 @@ public class Help {
         File[] categories = folder.listFiles();
         List<String> list = new ArrayList<>();
         List<String> list2 = new ArrayList<>();
+        String cat = null;
 
         assert categories != null;
         for (File category : categories) {
@@ -100,9 +103,10 @@ public class Help {
                 Class<?> commandClass = Class.forName(String.format("commands.%s.%s", category.getName(), command.getName().split("\\.")[0]));
                 Object o = commandClass.getDeclaredConstructor().newInstance();
                 list.add("`" + commandClass.getDeclaredMethod("getName").invoke(o).toString().toLowerCase() + "`");
+                cat = commandClass.getDeclaredMethod("getCategory").invoke(o).toString();
             }
 
-            list2.add("**" + category.getName() + "**\n" + String.join(", ", list));
+            list2.add("**" + cat + "**\n" + String.join(" ", list));
             list.clear();
         }
 

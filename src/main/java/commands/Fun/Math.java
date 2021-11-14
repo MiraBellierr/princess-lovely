@@ -29,6 +29,10 @@ public class Math {
         return "Returns a result of expression";
     }
 
+    public String getCategory() {
+        return "\uD83E\uDDE9 Fun";
+    }
+
     public CommandData slashCommand() {
         return new CommandData(this.getName(), this.getDescription()).addOption(OptionType.STRING, "expression", "Expression to be calculated", true);
     }

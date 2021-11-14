@@ -24,7 +24,7 @@ public class Roll {
     }
 
     public String getCategory() {
-        return "Fun";
+        return "\uD83E\uDDE9 Fun";
     }
 
     public CommandData slashCommand() {

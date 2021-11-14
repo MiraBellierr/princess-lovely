@@ -28,7 +28,7 @@ public class Botinfo {
     }
 
     public String getCategory() {
-        return "Info";
+        return "\uD83D\uDCDA Info";
     }
 
     public CommandData slashCommand() {

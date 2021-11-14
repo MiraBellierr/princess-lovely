@@ -28,7 +28,7 @@ public class Meme {
     }
 
     public String getCategory() {
-        return "meme";
+        return "\uD83E\uDD23 Meme";
     }
 
     public CommandData slashCommand() {

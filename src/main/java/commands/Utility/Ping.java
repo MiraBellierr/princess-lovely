@@ -18,7 +18,7 @@ public class Ping {
     }
 
     public String getCategory() {
-        return "utility";
+        return "\u2728 Utility";
     }
 
     public CommandData slashCommand() {
