@@ -29,7 +29,7 @@ public class joke {
     }
 
     public String getCategory() {
-        return "Fun";
+        return "\uD83E\uDDE9 Fun";
     }
 
     public CommandData slashCommand() {
@@ -54,7 +54,7 @@ public class joke {
             embed.setDescription(result.joke);
         }
 
-        embed.setAuthor(String.format("%s's Joke", result.category), null, event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+        embed.setAuthor(String.format("%s Joke", result.category), null, event.getJDA().getSelfUser().getEffectiveAvatarUrl());
         embed.setColor(new Color(205, 28, 108));
         embed.setTimestamp(Instant.from(ZonedDateTime.now()));
 
@@ -79,7 +79,7 @@ public class joke {
             embed.setDescription(result.joke);
         }
 
-        embed.setAuthor(String.format("%s's Joke", result.category), null, event.getJDA().getSelfUser().getEffectiveAvatarUrl());
+        embed.setAuthor(String.format("%s Joke", result.category), null, event.getJDA().getSelfUser().getEffectiveAvatarUrl());
         embed.setColor(new Color(205, 28, 108));
         embed.setTimestamp(Instant.from(ZonedDateTime.now()));
 
