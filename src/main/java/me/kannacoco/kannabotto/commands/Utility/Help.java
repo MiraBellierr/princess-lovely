@@ -59,7 +59,7 @@ public class Help extends HybridCommand {
         var builder = new StringBuilder();
 
         COMMANDS.forEach((category, commands) -> {
-            var firstCommand = Arrays.stream(commands).toList().get(0);
+            var firstCommand = Arrays.stream(commands).collect(Collectors.toList()).get(0);
             String categoryName;
             if (firstCommand != null) {
                 categoryName = firstCommand.getCategory();
@@ -88,7 +88,7 @@ public class Help extends HybridCommand {
         var builder = new StringBuilder();
 
         COMMANDS.forEach((category, commands) -> {
-            var firstCommand = Arrays.stream(commands).toList().get(0);
+            var firstCommand = Arrays.stream(commands).collect(Collectors.toList()).get(0);
              String categoryName;
              if (firstCommand != null) {
                  categoryName = firstCommand.getCategory();
