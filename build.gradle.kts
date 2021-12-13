@@ -4,8 +4,11 @@
  * This project uses @Incubating APIs which are subject to change.
  */
 
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     java
+    id("com.github.johnrengelman.shadow") version "7.1.0"
 }
 
 repositories {
@@ -31,5 +34,11 @@ java {
 tasks {
     jar {
         manifest.attributes["Main-Class"] = "me.kannacoco.kannabotto.Bot"
+    }
+    shadowJar {
+        manifest.attributes["Main-Class"] = "me.kannacoco.kannabotto.Bot"
+    }
+    build {
+        dependsOn(shadowJar)
     }
 }
