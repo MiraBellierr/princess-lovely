@@ -1,105 +1,83 @@
 package handlers;
 
+import commands.Fun.Math;
+import commands.Fun.*;
+import commands.Info.Avatar;
+import commands.Info.Botinfo;
+import commands.Meme.Drake;
+import commands.Meme.Exit12;
+import commands.Meme.Meme;
+import commands.Meme.Shaq;
+import commands.Utility.Help;
+import commands.Utility.Ping;
+import commands.base.ICommand;
+import commands.base.IRunnableSlashCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class Commands {
 
-    public void addTextCommands(String cmd, MessageReceivedEvent event, ArrayList<String> args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        File folder = new File("./classes/commands");
-        File[] categories = folder.listFiles();
+    public static final String[] CATEGORIES = {"Fun", "Info", "Meme", "Utility"};
+    public static final HashMap<String, ICommand[]> COMMANDS = new HashMap<String, ICommand[]>() {{
 
-        assert categories != null;
-        for (File category : categories) {
-            File categoryFolder = new File("./classes/commands/" + category.getName());
-            File[] commands = categoryFolder.listFiles();
+        // region: Fun
+        put("Fun",
+                new ICommand[] {
+                        new Advice(),
+                        new Alignment(),
+                        new Eightball(),
+                        new Joke(),
+                        new Love(),
+                        new Math(),
+                        new Rate(),
+                        new Roll(),
+                        new Sphere()
+        });
+        // endregion
 
-            assert commands != null;
-            for (File command : commands) {
-                String[] splitFileName = command.getName().split("\\.");
-                String fileName = splitFileName[0];
-                Class<?> commandClass = Class.forName("commands." + category.getName() + "." + fileName);
-                Object o = commandClass.getDeclaredConstructor().newInstance();
+        // region: Info
+        put("Info",
+                new ICommand[] {
+                        new Avatar(),
+                        new Botinfo()
+                });
+        // endregion
 
-                if (commandClass.getDeclaredMethod("getName").invoke(o).toString().toLowerCase().equals(cmd)) {
-                    commandClass.getDeclaredMethod("run", MessageReceivedEvent.class, ArrayList.class).invoke(o, event, args);
-                }
-            }
-        }
-    }
+        // region: Meme
+        put("Meme",
+                new ICommand[] {
+                        new Drake(),
+                        new Exit12(),
+                        new Meme(),
+                        new Shaq()
+                });
+        // endregion
 
-    public void slashCommandListener(SlashCommandEvent event, String cmd) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-        File folder = new File("./classes/commands");
-        File[] categories = folder.listFiles();
+        // region: Utility
+        put("Utility",
+                new ICommand[] {
+                        new Help(),
+                        new Ping()
+                });
+        // endregion
 
-        assert categories != null;
-        for (File category : categories) {
-            File categoryFolder = new File("./classes/commands/" + category.getName());
-            File[] commands = categoryFolder.listFiles();
+    }};
 
-            assert commands != null;
-            for (File command : commands) {
-                String[] splitFileName = command.getName().split("\\.");
-                String fileName = splitFileName[0];
-                Class<?> commandClass = Class.forName("commands." + category.getName() + "." + fileName);
-                Object o = commandClass.getDeclaredConstructor().newInstance();
-
-                if (commandClass.getDeclaredMethod("getName").invoke(o).toString().toLowerCase().equals(cmd)) {
-                    commandClass.getDeclaredMethod("runSlashCommand", SlashCommandEvent.class).invoke(o, event);
-                }
-            }
-        }
-    }
-
-    public void testSlashCommand(@NotNull JDA jda) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
+    public static void testSlashCommand(@NotNull JDA jda) {
         Guild guild = jda.getGuildById("873441703330185247");
-
-        File folder = new File("./classes/commands");
-        File[] categories = folder.listFiles();
-
-        assert categories != null;
-        for (File category : categories) {
-            File categoryFolder = new File("./classes/commands/" + category.getName());
-            File[] commands = categoryFolder.listFiles();
-
-            assert commands != null;
-            for (File command : commands) {
-                String[] splitFileName = command.getName().split("\\.");
-                String fileName = splitFileName[0];
-                Class<?> commandClass = Class.forName("commands." + category.getName() + "." + fileName);
-                Object o = commandClass.getDeclaredConstructor().newInstance();
-
-                assert guild != null;
-                guild.upsertCommand((CommandData) commandClass.getDeclaredMethod("slashCommand").invoke(o)).queue();
-            }
+        assert guild != null;
+        for (ICommand[] commands : COMMANDS.values()) {
+            Arrays.stream(commands).filter(it -> it instanceof IRunnableSlashCommand).forEach(it -> guild.upsertCommand(((IRunnableSlashCommand) it).slashCommand()).queue());
         }
     }
 
-    public void addSlashCommands(JDA jda) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-        File folder = new File("./classes/commands");
-        File[] categories = folder.listFiles();
-
-        assert categories != null;
-        for (File category : categories) {
-            File categoryFolder = new File("./classes/commands/" + category.getName());
-            File[] commands = categoryFolder.listFiles();
-
-            assert commands != null;
-            for (File command : commands) {
-                String[] splitFileName = command.getName().split("\\.");
-                String fileName = splitFileName[0];
-                Class<?> commandClass = Class.forName("commands." + category.getName() + "." + fileName);
-                Object o = commandClass.getDeclaredConstructor().newInstance();
-                jda.upsertCommand((CommandData) commandClass.getDeclaredMethod("slashCommand").invoke(o)).queue();
-            }
+    public static void addSlashCommands(JDA jda) {
+        for (ICommand[] commands : COMMANDS.values()) {
+            Arrays.stream(commands).filter(it -> it instanceof IRunnableSlashCommand).forEach(it -> jda.upsertCommand(((IRunnableSlashCommand) it).slashCommand()).queue());
         }
     }
 }

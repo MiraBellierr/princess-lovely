@@ -1,5 +1,6 @@
 package commands.Fun;
 
+import commands.base.HybridCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -12,7 +13,7 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
-public class Rate {
+public class Rate extends HybridCommand {
 
     public String getName() {
         return "rate";
@@ -30,7 +31,7 @@ public class Rate {
         return new CommandData(this.getName(), this.getDescription()).addOption(OptionType.STRING, "text", "Give me something to rate", true);
     }
 
-    public void run(MessageReceivedEvent event, @NotNull ArrayList<String> args) {
+    public void run(@NotNull MessageReceivedEvent event, @NotNull ArrayList<String> args) {
         String[] answers = {
                 // Postive
                 "💯", "Yes", "me likey", "👀", "😍😍", "he's cool yea", "she's cool yea", "uhhhh yes", "indeed", "would bang", "my favorite", "pretty good", "music to my ears",

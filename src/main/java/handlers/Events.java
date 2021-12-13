@@ -1,24 +1,17 @@
 package handlers;
 
+import events.MessageReceived;
+import events.Ready;
+import events.SlashCommand;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 public class Events {
-
-    public void addEvents(JDABuilder builder) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        File folder = new File("./classes/events");
-        File[] listOfFiles = folder.listFiles();
-        assert listOfFiles != null;
-
-        for (File file : listOfFiles) {
-            if (file.getName().endsWith(".class")) {
-                String[] splitFileName = file.getName().split("\\.");
-                String fileName = splitFileName[0];
-                Class<?> event = Class.forName("events." + fileName);
-                builder.addEventListeners(event.getConstructor().newInstance());
-            }
-        }
+    public static ListenerAdapter[] LISTENERS = new ListenerAdapter[]{new MessageReceived(), new Ready(), new SlashCommand()};
+    public static void addListeners(JDABuilder builder) {
+        builder.addEventListeners(Arrays.stream(LISTENERS).toArray());
     }
 }

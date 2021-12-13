@@ -1,5 +1,6 @@
 package commands.Info;
 
+import commands.base.HybridCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -14,7 +15,7 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
-public class Avatar {
+public class Avatar extends HybridCommand {
 
     public String getName() {
         return "avatar";

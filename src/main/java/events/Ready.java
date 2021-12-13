@@ -12,11 +12,6 @@ public class Ready extends ListenerAdapter {
     @Override
     public void onReady(@NotNull ReadyEvent event) {
         System.out.println(event.getJDA().getSelfUser().getName() + " is online!");
-
-        try {
-            new Commands().addSlashCommands(event.getJDA());
-        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
-        }
+        Commands.addSlashCommands(event.getJDA());
     }
 }

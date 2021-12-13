@@ -1,5 +1,6 @@
 package commands.Utility;
 
+import commands.base.HybridCommand;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -7,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class Ping {
+public class Ping extends HybridCommand {
 
     public String getName() {
         return "ping";
