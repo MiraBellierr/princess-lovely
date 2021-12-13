@@ -1,5 +1,6 @@
 package events;
 
+import commands.base.IRunnableMessageCommand;
 import handlers.Commands;
 import org.jetbrains.annotations.NotNull;
 import utils.Prefix;
@@ -8,9 +9,14 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+
+import static handlers.Commands.COMMANDS;
 
 public class MessageReceived extends ListenerAdapter {
 
@@ -30,8 +36,9 @@ public class MessageReceived extends ListenerAdapter {
         args.remove(0);
 
         try {
-            new Commands().addTextCommands(cmd, event, args);
-        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            IRunnableMessageCommand command = (IRunnableMessageCommand) COMMANDS.values().stream().flatMap(Arrays::stream).filter(it -> it instanceof IRunnableMessageCommand && it.getName().equals(cmd)).findFirst().orElseThrow();
+            command.run(event, args);
+        } catch (IOException | ParseException | InterruptedException e) {
             e.printStackTrace();
         }
 

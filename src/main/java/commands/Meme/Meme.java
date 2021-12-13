@@ -1,6 +1,7 @@
 package commands.Meme;
 
 import com.google.gson.Gson;
+import commands.base.HybridCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -17,7 +18,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 
-public class Meme {
+public class Meme extends HybridCommand {
 
     public String getDescription() {
         return "Returns a meme";
@@ -35,7 +36,7 @@ public class Meme {
         return new CommandData(this.getName(), this.getDescription());
     }
 
-    public void run(@NotNull MessageReceivedEvent event, ArrayList<String> args) throws IOException, InterruptedException {
+    public void run(@NotNull MessageReceivedEvent event, @NotNull ArrayList<String> args) throws IOException, InterruptedException {
         DataRetrieve result = sendRandomMeme();
 
         EmbedBuilder embed = new EmbedBuilder()

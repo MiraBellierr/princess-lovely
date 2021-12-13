@@ -1,6 +1,7 @@
 package commands.Meme;
 
 import com.google.gson.Gson;
+import commands.base.HybridCommand;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Drake {
+public class Drake extends HybridCommand {
 
     public String getName() {
         return "drake";
@@ -41,7 +42,7 @@ public class Drake {
                 .addOption(OptionType.STRING, "text2", "Below Text", true);
     }
 
-    public void run(MessageReceivedEvent event, @NotNull ArrayList<String> args) throws IOException, InterruptedException {
+    public void run(@NotNull MessageReceivedEvent event, @NotNull ArrayList<String> args) throws IOException, InterruptedException {
         if (args.toArray().length < 1) {
             event.getMessage().reply(String.format("Please input a text. `%s%s text1 | text2`", new Prefix().getPrefix(), this.getName())).mentionRepliedUser(false).queue();
             return;

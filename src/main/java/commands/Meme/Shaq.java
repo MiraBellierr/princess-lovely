@@ -1,6 +1,7 @@
 package commands.Meme;
 
 import com.google.gson.Gson;
+import commands.base.HybridCommand;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Shaq {
+public class Shaq extends HybridCommand {
 
     public String getName() {
         return "shaq";
@@ -39,7 +40,7 @@ public class Shaq {
         return new CommandData(this.getName(), this.getDescription()).addOption(OptionType.STRING, "text1", "Upper Text", true);
     }
 
-    public void run(MessageReceivedEvent event, @NotNull ArrayList<String> args) throws IOException, InterruptedException {
+    public void run(@NotNull MessageReceivedEvent event, @NotNull ArrayList<String> args) throws IOException, InterruptedException {
         if (args.toArray().length < 1) {
             event.getMessage().reply(String.format("Please input a text. `%s%s text1`", new Prefix().getPrefix(), this.getName())).mentionRepliedUser(false).queue();
             return;

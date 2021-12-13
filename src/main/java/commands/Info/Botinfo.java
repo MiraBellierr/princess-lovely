@@ -1,5 +1,6 @@
 package commands.Info;
 
+import commands.base.HybridCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDAInfo;
 import net.dv8tion.jda.api.entities.ApplicationInfo;
@@ -17,7 +18,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Botinfo {
+public class Botinfo extends HybridCommand {
 
     public String getName() {
         return "botinfo";
@@ -35,7 +36,7 @@ public class Botinfo {
         return new CommandData(this.getName(), this.getDescription());
     }
 
-    public void run(@NotNull MessageReceivedEvent event, ArrayList<String> args) throws ParseException {
+    public void run(@NotNull MessageReceivedEvent event, @NotNull ArrayList<String> args) throws ParseException {
         RestAction<ApplicationInfo> action = event.getJDA().retrieveApplicationInfo();
         ApplicationInfo app = action.complete();
         String owner = app.getOwner().getAsTag();

@@ -1,5 +1,6 @@
 package commands.Fun;
 
+import commands.base.HybridCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -13,7 +14,7 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
-public class Roll {
+public class Roll extends HybridCommand {
 
     public String getName() {
         return "roll";
@@ -33,7 +34,7 @@ public class Roll {
                 .addOption(OptionType.INTEGER, "sides", "number of sides per die", true);
     }
 
-    public void run(MessageReceivedEvent event, @NotNull ArrayList<String> args) {
+    public void run(@NotNull MessageReceivedEvent event, @NotNull ArrayList<String> args) {
         if (args.toArray().length < 2) {
             event.getMessage().reply(String.format("Please roll in an accepted format\n`%sroll <# of dice> <# of sides per die>`", new Prefix().getPrefix())).mentionRepliedUser(false).queue();
             return;

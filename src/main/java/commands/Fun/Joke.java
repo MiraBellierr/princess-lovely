@@ -1,10 +1,12 @@
 package commands.Fun;
 
 import com.google.gson.Gson;
+import commands.base.HybridCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+import org.jetbrains.annotations.NotNull;
 import utils.joke.Jokes;
 
 import java.awt.*;
@@ -18,7 +20,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class joke {
+public class Joke extends HybridCommand {
 
     public String getName() {
         return "joke";
@@ -36,7 +38,7 @@ public class joke {
         return new CommandData(this.getName(), this.getDescription());
     }
 
-    public void run(MessageReceivedEvent event, ArrayList<String> args) throws IOException, InterruptedException {
+    public void run(@NotNull MessageReceivedEvent event, @NotNull ArrayList<String> args) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://v2.jokeapi.dev/joke/Any"))
@@ -61,7 +63,7 @@ public class joke {
         event.getMessage().replyEmbeds(embed.build()).mentionRepliedUser(false).queue();
     }
 
-    public void runSlashCommand(SlashCommandEvent event) throws IOException, InterruptedException {
+    public void runSlashCommand(@NotNull SlashCommandEvent event) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://v2.jokeapi.dev/joke/Any"))

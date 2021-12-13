@@ -1,6 +1,7 @@
 package commands.Fun;
 
 import com.google.gson.Gson;
+import commands.base.HybridCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -17,7 +18,7 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
-public class Advice {
+public class Advice extends HybridCommand {
 
     public String getName() {
         return "advice";
@@ -35,7 +36,7 @@ public class Advice {
         return new CommandData(this.getName(), this.getDescription());
     }
 
-    public void run(@NotNull MessageReceivedEvent event, ArrayList<String> args) throws IOException, InterruptedException {
+    public void run(@NotNull MessageReceivedEvent event, @NotNull ArrayList<String> args) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.adviceslip.com/advice"))

@@ -1,6 +1,7 @@
 package commands.Meme;
 
 import com.google.gson.Gson;
+import commands.base.HybridCommand;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Exit12 {
+public class Exit12 extends HybridCommand {
     public String getName() {
         return "exit12";
     }
@@ -41,7 +42,7 @@ public class Exit12 {
                 .addOption(OptionType.STRING, "text3", "Text 3", true);
     }
 
-    public void run(MessageReceivedEvent event, @NotNull ArrayList<String> args) throws IOException, InterruptedException {
+    public void run(@NotNull MessageReceivedEvent event, @NotNull ArrayList<String> args) throws IOException, InterruptedException {
         if (args.toArray().length < 1) {
             event.getMessage().reply(String.format("Please input a text. `%s%s text1 | text2 | text3`", new Prefix().getPrefix(), this.getName())).mentionRepliedUser(false).queue();
             return;

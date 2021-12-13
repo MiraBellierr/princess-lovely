@@ -1,5 +1,6 @@
 package commands.Fun;
 
+import commands.base.HybridCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -12,7 +13,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Alignment {
+public class Alignment extends HybridCommand {
 
     public String getName() {
         return "alignment";
@@ -30,7 +31,7 @@ public class Alignment {
         return new CommandData(this.getName(), this.getDescription());
     }
 
-    public void run(@NotNull MessageReceivedEvent event, ArrayList<String> args) {
+    public void run(@NotNull MessageReceivedEvent event, @NotNull ArrayList<String> args) {
         String[] alignments = { "Lawful Good", "Neutral Good", "Chaotic Good", "Lawful Neutral", "True Neutral", "Chaotic Neutral", "Lawful Evil", "Neutral Evil", "Chaotic Evil" };
         double id = Double.parseDouble(event.getAuthor().getId());
         int choice = (int) (id % alignments.length);

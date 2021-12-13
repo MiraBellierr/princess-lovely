@@ -1,5 +1,6 @@
 package commands.Fun;
 
+import commands.base.HybridCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -12,7 +13,7 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
-public class Sphere {
+public class Sphere extends HybridCommand {
 
     public String getName() {
         return "sphere";
@@ -30,7 +31,7 @@ public class Sphere {
         return new CommandData(this.getName(), this.getDescription()).addOption(OptionType.INTEGER, "radius", "Provide a radius number", true);
     }
 
-    public void run(MessageReceivedEvent event, @NotNull ArrayList<String> args) {
+    public void run(@NotNull MessageReceivedEvent event, @NotNull ArrayList<String> args) {
         if (args.toArray().length < 1) {
             event.getMessage().reply("You didn't provide radius!\n\n**NOTE**:\n- This command is to calculate the volume and the surface area of sphere using the radius entered by the user\n- This is my first command I created when I started developing this bot.").mentionRepliedUser(false).queue();
             return;

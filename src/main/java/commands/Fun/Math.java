@@ -1,5 +1,6 @@
 package commands.Fun;
 
+import commands.base.HybridCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -19,7 +20,7 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
-public class Math {
+public class Math extends HybridCommand {
 
     public String getName() {
         return "math";
@@ -37,7 +38,7 @@ public class Math {
         return new CommandData(this.getName(), this.getDescription()).addOption(OptionType.STRING, "expression", "Expression to be calculated", true);
     }
 
-    public void run(MessageReceivedEvent event, @NotNull ArrayList<String> args) throws IOException, InterruptedException {
+    public void run(@NotNull MessageReceivedEvent event, @NotNull ArrayList<String> args) throws IOException, InterruptedException {
         if (args.toArray().length < 1) {
             event.getChannel().sendMessage("Please enter an expression").queue();
             return;

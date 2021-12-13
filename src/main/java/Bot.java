@@ -9,17 +9,16 @@ import utils.Prefix;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.EnumSet;
 
 public class Bot {
 
-    public static void main(String[] args) throws LoginException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, IOException, InterruptedException {
+    public static void main(String[] args) throws LoginException, IOException, InterruptedException {
         JDABuilder builder = JDABuilder.createDefault(new Config().getConfig().getProperty("TOKEN"), EnumSet.allOf(GatewayIntent.class))
                 .setActivity(Activity.playing(String.format("Type %shelp", new Prefix().getPrefix())))
                 .setMemberCachePolicy(MemberCachePolicy.ALL);
 
-        new Events().addEvents(builder);
+        new Events().addListeners(builder);
 
         builder.build().awaitReady();
 
