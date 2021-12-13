@@ -23,4 +23,4 @@ dependencies {
 group = "me.kannacoco"
 version = "1.0"
 description = "KannaBotto"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_17

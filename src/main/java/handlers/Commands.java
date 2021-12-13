@@ -1,7 +1,7 @@
 package handlers;
 
-import commands.Fun.*;
 import commands.Fun.Math;
+import commands.Fun.*;
 import commands.Info.Avatar;
 import commands.Info.Botinfo;
 import commands.Meme.Drake;
@@ -11,20 +11,11 @@ import commands.Meme.Shaq;
 import commands.Utility.Help;
 import commands.Utility.Ping;
 import commands.base.ICommand;
-import commands.base.IRunnableMessageCommand;
 import commands.base.IRunnableSlashCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -69,7 +60,7 @@ public class Commands {
         // region: Utility
         put("Utility",
                 new ICommand[] {
-                        // new Help(), // Disabled cause it needs a full rework.
+                        new Help(),
                         new Ping()
                 });
         // endregion
