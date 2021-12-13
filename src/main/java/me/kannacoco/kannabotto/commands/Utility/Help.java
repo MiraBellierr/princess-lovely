@@ -59,7 +59,14 @@ public class Help extends HybridCommand {
         var builder = new StringBuilder();
 
         COMMANDS.forEach((category, commands) -> {
-            builder.append("**").append(category).append("**").append('\n');
+            var firstCommand = Arrays.stream(commands).toList().get(0);
+            String categoryName;
+            if (firstCommand != null) {
+                categoryName = firstCommand.getCategory();
+            } else {
+                categoryName = category;
+            }
+            builder.append("**").append(categoryName).append("**").append('\n');
             var commandNames = Arrays.stream(commands).map(it -> '`' + it.getName() + '`');
             builder.append(commandNames.collect(Collectors.joining(" ")));
             builder.append('\n');
@@ -81,13 +88,20 @@ public class Help extends HybridCommand {
         var builder = new StringBuilder();
 
         COMMANDS.forEach((category, commands) -> {
-            builder.append("**").append(category).append("**").append('\n');
+            var firstCommand = Arrays.stream(commands).toList().get(0);
+             String categoryName;
+             if (firstCommand != null) {
+                 categoryName = firstCommand.getCategory();
+             } else {
+                 categoryName = category;
+             }
+            builder.append("**").append(categoryName).append("**").append('\n');
             var commandNames = Arrays.stream(commands).map(it -> '`' + it.getName() + '`');
             builder.append(commandNames.collect(Collectors.joining(" ")));
             builder.append('\n');
         });
 
-        embed.setDescription(fullHelpDescription + builder.toString());
+        embed.setDescription(fullHelpDescription + builder);
         event.getMessage().replyEmbeds(embed.build()).mentionRepliedUser(false).queue();
     }
 

@@ -20,7 +20,7 @@ public class Bot {
                 .setActivity(Activity.playing(String.format("Type %shelp", new Prefix().getPrefix())))
                 .setMemberCachePolicy(MemberCachePolicy.ALL);
 
-        new Events().addListeners(builder);
+        Events.addListeners(builder);
 
         builder.build().awaitReady();
 
