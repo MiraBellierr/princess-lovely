@@ -6,7 +6,6 @@
 
 plugins {
     java
-    `maven-publish`
 }
 
 repositories {
@@ -20,7 +19,17 @@ dependencies {
     implementation("org.mongodb:mongo-java-driver:3.12.10")
 }
 
-group = "me.kannacoco"
+group = "me.kannacoco.kannabotto"
 version = "1.0"
 description = "KannaBotto"
-java.sourceCompatibility = JavaVersion.VERSION_17
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks {
+    jar {
+        manifest.attributes["Main-Class"] = "me.kannacoco.kannabotto.Bot"
+    }
+}
