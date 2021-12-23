@@ -56,7 +56,7 @@ public class Botinfo extends HybridCommand {
         assert false;
         EmbedBuilder embed = new EmbedBuilder()
                 .setAuthor(event.getAuthor().getName(), null, event.getAuthor().getEffectiveAvatarUrl())
-                .setTitle("me.kannacoco.kannabotto.Bot Information")
+                .setTitle("Bot Information")
                 .setThumbnail(event.getJDA().getSelfUser().getEffectiveAvatarUrl())
                 .setColor(new Color(205, 28, 108))
                 .setDescription(String.format("**- Developer:** %s\n**- Tag:** %s\n**- Created At:** %s\n**- Servers**: %s servers\n**- Cached Users**: %s users\n**- Version:** %s\n**- Library:** %s\n**- Database:** %s\n**- JRE:** %s\n**- Gateaway Ping:** %sms", owner, event.getJDA().getSelfUser().getAsTag(), formattedTime, servers, cacheUsers, version, library, database, JRE, event.getJDA().getGatewayPing()))

@@ -4,3 +4,4 @@ build
 src/test
 src/main/resources
 /src/main/java/bot.config
+bot.config
